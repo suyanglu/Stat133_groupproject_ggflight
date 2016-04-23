@@ -1,6 +1,6 @@
 ---
 title: "Stat133 Project"
-author: ""
+author: "Suyang Lu"
 date: ""
 output: 
   html_document:
