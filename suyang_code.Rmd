@@ -1,5 +1,5 @@
 ---
-title: "Stat133"
+title: "Stat133 Project"
 author: "Suyang Lu"
 date: ""
 output: 
