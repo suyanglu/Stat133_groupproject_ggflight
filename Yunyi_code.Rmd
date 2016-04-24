@@ -46,15 +46,30 @@ convertTimetoMin <- function(x) {
   return (totalmin)
 }
 
+convertTimetoHour <- function(x) {
+  time_padded <- str_pad(x, 4, pad="0")
+  hour <- substr(time_padded, 0, nchar(time_padded)-2)
+  hour <- as.numeric(hour)
+  
+  return (hour)
+}
+
+convertTimetoHour(101)
 
 
-time_padded <- str_pad(time_orig, 4, pad="0")
+# ---------scrach below--------------
+convertInttoTime <- function(x) {
+  time_padded <- str_pad(x, 4, pad="0")
+  hour <- substr(time_padded, 0, nchar(time_padded)-2)
+  mins <- substr(time_padded, nchar(time_padded)-1, nchar(time_padded))
+  
+  hour <- as.numeric(hour)
+  mins <- as.numeric(mins)
+  totalmin <- 60 * hour + mins
+  return (totalmin)
+}
 
-hour <- substr(time_padded, 0, nchar(time_padded)-2)
 
-mins <- substr(time_padded, nchar(time_padded)-1, nchar(time_padded))
-
-time <- paste(hour, ":", mins)
 
 
 
