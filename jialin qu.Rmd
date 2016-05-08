@@ -1,6 +1,6 @@
 ---
-title: "Yunyi_code"
-author: "Yunyi Huang"
+title: "Untitled"
+author: ""
 date: ""
 output: 
   html_document:
@@ -11,29 +11,15 @@ output:
 ```{r include=FALSE}
 # Don't delete this chunk if you are using the DataComputing package
 library(DataComputing)
-library(lubridate)
-library(stringr)
 ```
 *Source file* 
 ```{r, results='asis', echo=FALSE}
 includeSourceDocuments()
 ```
 <!-- Don't edit the material above this line -->
-
-```{r, eval=F}
-start<-Sys.time()
-fli_08 <-read.csv("/Users/keqin/Downloads/2008.csv") #read the csv file
-fli_08_cp <- fli_08
-end<-Sys.time()
-end-start
-View(fli_08) # View in rstudio
-View(fli_08_cp)
-fli_new <- (head(fli_08$DepTime))
-
-fli_delay <- fli_08 %>% filter(UniqueCarrier="WN")
-
-class(fli_08$DepTime)
-time_orig <- fli_08_cp$DepTime
+```{r}
+lol <- read.csv("/Users/JialinQu/Desktop/2008.csv")
+library(DataComputing)
 
 convertTimetoMin <- function(x) {
   time_padded <- str_pad(x, 4, pad="0")
@@ -54,23 +40,16 @@ convertTimetoHour <- function(x) {
   return (hour)
 }
 
-convertTimetoHour(101)
+data2008 <- lol %>%
+  select(DayOfWeek, DepTime, ArrDelay, Origin, WeatherDelay, UniqueCarrier) %>%
+  filter(ArrDelay >= 0) %>%
+  mutate(category = convertTimetoHour(DepTime)) %>%
+  group_by(category)
 
-
-# ---------scrach below--------------
-convertInttoTime <- function(x) {
-  time_padded <- str_pad(x, 4, pad="0")
-  hour <- substr(time_padded, 0, nchar(time_padded)-2)
-  mins <- substr(time_padded, nchar(time_padded)-1, nchar(time_padded))
-  
-  hour <- as.numeric(hour)
-  mins <- as.numeric(mins)
-  totalmin <- 60 * hour + mins
-  return (totalmin)
-}
+hellograph <- data2008 %>% ggplot(aes(x = category, y = ArrDelay)) + geom_point()
 
 
 
 
 
-```
+
