@@ -11,6 +11,7 @@ output:
 ```{r include=FALSE}
 # Don't delete this chunk if you are using the DataComputing package
 library(DataComputing)
+library(lubridate)
 ```
 *Source file* 
 ```{r, results='asis', echo=FALSE}
@@ -19,4 +20,31 @@ includeSourceDocuments()
 <!-- Don't edit the material above this line -->
 
 
-Delete this sentence and start entering your text here.
+```{r}
+setwd("/Users/suyanglu/Downloads")
+dfof2008=read.csv("2008.csv")
+dfof2007=read.csv("2007.csv")
+dfof2006=read.csv("2006.csv")
+dfof2005=read.csv("2005.csv")
+dfof2004=read.csv("2004.csv")
+dfof2003=read.csv("2003.csv")
+dfof2002=read.csv("2002.csv")
+df0f2001=read.csv("2001.csv")
+dfof2000=read.csv("2000.csv")
+```
+
+```{r}
+tableof2008=dfof2008
+tableof2007=dfof2007
+tableof2006=dfof2006
+tableof2005=dfof2005
+tableof2004=dfof2004
+tableof2003=dfof2003
+tableof2002=dfof2002
+tableof2001=dfof2001
+tableof2000=dfof2000
+```
+
+```{r}
+table=rbind(tableof2008, tableof2007, tableof2006, tableof2005, tableof2004, tableof2003, tableof2002, tableof2001, tableof2000)
+tabledalay=table%>%filter(ArrDelay>0|DepDelay>0)
