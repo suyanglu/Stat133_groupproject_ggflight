@@ -56,8 +56,23 @@ convertTimetoHour <- function(x) {
 
 convertTimetoHour(101)
 
+data2008 <- fli_08_cp %>%
+  select(DayOfWeek, DepTime, ArrDelay, Origin, WeatherDelay, UniqueCarrier) %>%
+  filter(ArrDelay >= 0) %>%
+  mutate(category = convertTimetoHour(DepTime)) %>%
+  group_by(category)
 
-# ---------scrach below--------------
+hellograph <- data2008 %>% ggplot(aes(x = category, y = ArrDelay)) + geom_point() + geom_smooth()
+
+hellograph+ylim(0,200)
+
+start<-Sys.time()
+hellograph
+end<-Sys.time()
+end-start
+
+# ---------scrach below #ignore# --------------
+
 convertInttoTime <- function(x) {
   time_padded <- str_pad(x, 4, pad="0")
   hour <- substr(time_padded, 0, nchar(time_padded)-2)
