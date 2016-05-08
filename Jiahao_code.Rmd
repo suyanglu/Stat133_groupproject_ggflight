@@ -11,12 +11,55 @@ output:
 ```{r include=FALSE}
 # Don't delete this chunk if you are using the DataComputing package
 library(DataComputing)
+library(RCurl)
+library(lubridate)
 ```
 *Source file* 
 ```{r, results='asis', echo=FALSE}
 includeSourceDocuments()
 ```
-<!-- Don't edit the material above this line -->
 
 
-Delete this sentence and start entering your text here.
+
+
+Read csv file
+```{r}
+setwd("/Users/Jiahao/Desktop/stats133/Stats133 Group Project")
+df <- read.csv("input/2008.csv")
+airline <- read.csv("input/carriers.csv")
+talbe = df
+```
+
+```{r}
+uniqueCarrier <- unique(df$UniqueCarrier)
+length(uniqueCarrier)
+
+avg_carrDelay = c()
+for (c in uniqueCarrier) {
+  temp <- df %>% filter(UniqueCarrier == c & !is.na(CarrierDelay))
+  avg_carrDelay = c(mean(temp$CarrierDelay), avg_carrDelay)
+}
+print(avg_carrDelay)
+length(avg_carrDelay)
+
+
+Carrier_and_CDelay = data_frame(uniqueCarrier, avg_carrDelay)
+
+
+Carrier_and_CDelay <- inner_join(airline,Carrier_and_CDelay, by = c("Code"="uniqueCarrier"), copy = TRUE)
+
+
+
+png(file = "graph/Average Delay of Carriers.png")
+Carrier_and_CDelay %>% 
+  ggplot(aes(x = Code, y = avg_carrDelay)) +
+  geom_point() + 
+  labs(x = "Carriers", y = "Average Delay", title = "Average Delay of Carriers")
+dev.off()
+
+```
+
+
+
+
+
